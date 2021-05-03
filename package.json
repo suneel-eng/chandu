@@ -1,5 +1,5 @@
 {
-  "name": "chandu",
+  "name": "extract-word-docs",
   "version": "1.0.0",
   "description": ".docx to html converter",
   "main": "index.js",
@@ -13,7 +13,9 @@
   "keywords": [
     "docx",
     "html",
-    "chandu"
+    "extract",
+    "word",
+    "extract-word-docs"
   ],
   "author": "suneel",
   "license": "ISC",
