@@ -8,7 +8,7 @@
     "start": "nodemon server.js"
   },
   "repository": {
-    "url": "https://github.com/suneel-eng/chandu"
+    "url": "https://github.com/suneel-eng/extract-word-docs"
   },
   "keywords": [
     "docx",
