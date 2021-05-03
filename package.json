@@ -1,14 +1,21 @@
 {
-  "name": "scroll",
+  "name": "chandu",
   "version": "1.0.0",
-  "description": "",
+  "description": ".docx to html converter",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "url": "https://github.com/suneel-eng/chandu"
+  },
+  "keywords": [
+    "docx",
+    "html",
+    "chandu"
+  ],
+  "author": "suneel",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
