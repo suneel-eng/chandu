@@ -72,9 +72,13 @@ module.exports = class Document {
 
             let chunks = [], content = '', components = '';
 
+            zip.on('error', () => {
+                reject(err);
+            })
+
             zip.on('ready', () => {
                 zip.stream('word/document.xml', (err, stream) => {
-                    if (err) reject(err);
+                    if (err) reject(reject(err));
 
                     stream.on('data', function (chunk) {
                         chunks.push(chunk)
