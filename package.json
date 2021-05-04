@@ -19,7 +19,6 @@
   "author": "suneel",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
     "node-stream-zip": "^1.13.3",
     "xml2js": "^0.4.23"
   }
