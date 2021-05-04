@@ -1,11 +1,26 @@
 # Why extract-word-docs
 
 # Installation
-
-`npm i extract-word-docs --save`
+```sh
+npm i extract-word-docs --save
+```
 
 # Usage
 
+```javascript
+const Document = require('extract-word-docs');
+
+let document = new Document(filepath, {editable: true});
+
+document.extractAsHTML().then(data => {
+    console.log(data);
+});
+
 ```
-const Document = require('')
-```
+# Options
+
+You can pause these options for the contructor.
+
+**editable:** ` true | false `  (default is `false`)
+* `true` to get editable document (if you edit something, changes will occur only in the extracted document not in the original document).
+* `false` to get uneditable document.
