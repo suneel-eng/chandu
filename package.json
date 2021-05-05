@@ -4,7 +4,7 @@
   "description": ".docx to html converter",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodemon tests/server.js"
   },
   "files": [
     "index.js",
@@ -25,5 +25,8 @@
   "dependencies": {
     "node-stream-zip": "^1.13.3",
     "xml2js": "^0.4.23"
+  },
+  "devDependencies": {
+    "express": "^4.17.1"
   }
 }
