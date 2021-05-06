@@ -1,13 +1,5 @@
 let formats = require('../formats');
 
-/* numbering parser */
-
-let numberingParser = (data, options) => {
-    // let abstractNums = data.split('<w:abstractNum w:abstractNumId="3"');
-    // console.log(abstractNums.length);
-    return;
-};
-
 /* styles parser */
 let stylesParser = (data, options) => {
     let styles = data.match(formats['wstyle']);
@@ -70,4 +62,4 @@ let documentParser = (data, options) => {
     return `<div contenteditable=${options.editable}>${structuredText}</div>`;
 }
 
-module.exports = {documentParser, stylesParser, numberingParser};
+module.exports = {documentParser, stylesParser};

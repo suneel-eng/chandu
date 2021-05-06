@@ -34,23 +34,6 @@ module.exports = class Document {
 
             zip.on('ready', () => {
 
-                //read numbering.xml file
-            zip.stream('word/numbering.xml', (err, stream) => {
-                if (err) reject(reject(err));
-
-                stream.on('data', function (chunk) {
-                    numberingChunks.push(chunk);
-                });
-
-                stream.on('end', () => {
-                    numberingContent = Buffer.concat(numberingChunks)
-                    zip.close()
-                    numberingComponents = numberingContent.toString();
-                    let numberings = numberingParser(numberingComponents, null);
-                    console.log(numberings.length);
-                });
-            });
-            
                 // read styles.xml file
             
             zip.stream('word/styles.xml', (err, stream) => {
