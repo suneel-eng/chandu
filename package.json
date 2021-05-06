@@ -8,7 +8,8 @@
   },
   "files": [
     "index.js",
-    "formats.js"
+    "formats.js",
+    "parser/*"
   ],
   "repository": {
     "url": "https://github.com/suneel-eng/extract-word-docs"
@@ -18,7 +19,8 @@
     "html",
     "extract",
     "word",
-    "extract-word-docs"
+    "extract-word-docs",
+    "docx-to-html"
   ],
   "author": "suneel",
   "license": "ISC",
