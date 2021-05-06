@@ -1,7 +1,6 @@
 module.exports = {
     wbody: /<w:body(|\s+[^>]*)>(?<body>.*?)<\/w:body\s*>/gm, // mateches body
     wstyle: /<w:style(|\s+[^>]*)>(?<style>.*?)<\/w:style\s*>/gm, // mateches styles
-    wabstractNum: /<w:abstractNum(.*?)?>(?<abstractNum>.*?)<\/w:abstractNum>/gm, // mateches abstractNums
     wsectPr: /<w:sectPr(|\s+[^>]*)>(?<section>.*?)<\/w:sectPr\s*>/gm, // mateches sections
     wt: /<w:t(|\s+[^>]*)>(?<text>.*?)<\/w:t\s*>/gm, // mateches texts,
     textWt: /(<w:(?<delete>del|ins)(.*?)>)?(<w:run(.*?)*>)<w:(t|delText)(.*?)*>(.*?)<\/w:(t|delText)><\/w:run>(<\/w:(del|ins)>)?/gm, // perfect text parser

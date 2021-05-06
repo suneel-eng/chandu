@@ -3,14 +3,8 @@ let formats = require('../formats');
 /* numbering parser */
 
 let numberingParser = (data, options) => {
-    let abstractNums = data.match(formats['wabstractNum']);
-    let abstractNumObjects = [];
+    let abstractNums = data.split('<w:abstractNum w:abstractNumId="3"');
     console.log(abstractNums.length);
-    for(let i = 0; i<= abstractNums.length; i++) {
-        let abstractNumId = /w:abstractNumId="(?<id>.*?)"/gm.exec(abstractNums[i])?.groups.id;
-        abstractNumObjects.push({abstractNumId});
-    }
-    console.log(abstractNumObjects);
     return data;
 };
 

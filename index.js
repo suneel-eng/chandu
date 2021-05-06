@@ -30,44 +30,44 @@ module.exports = class Document {
 
             zip.on('error', (err) => {
                 reject(err);
-            })
+            });
 
             zip.on('ready', () => {
 
-                // read styles.xml file
-                zip.stream('word/styles.xml', (err, stream) => {
-                    if (err) reject(reject(err));
-
-                    stream.on('data', function (chunk) {
-                        styleChunks.push(chunk);
-                    });
-
-                    stream.on('end', () => {
-                        styleContent = Buffer.concat(styleChunks)
-                        zip.close()
-                        styleComponents = styleContent.toString();
-                        let styles = stylesParser(styleComponents);
-                        return;
-                    })
-                });
-
                 //read numbering.xml file
+            zip.stream('word/numbering.xml', (err, stream) => {
+                if (err) reject(reject(err));
 
-                zip.stream('word/numbering.xml', (err, stream) => {
-                    if (err) reject(reject(err));
-
-                    stream.on('data', function (chunk) {
-                        numberingChunks.push(chunk);
-                    });
-
-                    stream.on('end', () => {
-                        numberingContent = Buffer.concat(numberingChunks)
-                        zip.close()
-                        numberingComponents = numberingContent.toString();
-                        let numberings = numberingParser(numberingComponents);
-                        console.log(numberings);
-                    })
+                stream.on('data', function (chunk) {
+                    numberingChunks.push(chunk);
                 });
+
+                stream.on('end', () => {
+                    numberingContent = Buffer.concat(numberingChunks)
+                    zip.close()
+                    numberingComponents = numberingContent.toString();
+                    let numberings = numberingParser(numberingComponents, null);
+                    console.log(numberings.length);
+                });
+            });
+            
+                // read styles.xml file
+            
+            zip.stream('word/styles.xml', (err, stream) => {
+                if (err) reject(reject(err));
+
+                stream.on('data', function (chunk) {
+                    styleChunks.push(chunk);
+                });
+
+                stream.on('end', () => {
+                    styleContent = Buffer.concat(styleChunks)
+                    zip.close()
+                    styleComponents = styleContent.toString();
+                    let styles = stylesParser(styleComponents);
+                    return;
+                })
+            });
 
                 // read document.xml file
                 zip.stream('word/document.xml', (err, stream) => {
