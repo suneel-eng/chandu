@@ -29,3 +29,11 @@ You can pause these options for the contructor.
 **delText:** `true | false` (default is `false`)
 * `true` to get deleted text. (deleted text will contain red color by default).
 * `false` to neglect deleted text.
+
+**Supported elements:**
+* Paragraphs
+
+**To do**
+* lists
+* tables
+* styles
