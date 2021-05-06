@@ -3,9 +3,9 @@ let formats = require('../formats');
 /* numbering parser */
 
 let numberingParser = (data, options) => {
-    let abstractNums = data.split('<w:abstractNum w:abstractNumId="3"');
-    console.log(abstractNums.length);
-    return data;
+    // let abstractNums = data.split('<w:abstractNum w:abstractNumId="3"');
+    // console.log(abstractNums.length);
+    return;
 };
 
 /* styles parser */

@@ -1,6 +1,6 @@
 {
   "name": "extract-word-docs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": ".docx to html converter",
   "main": "index.js",
   "scripts": {
