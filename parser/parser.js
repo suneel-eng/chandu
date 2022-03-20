@@ -1,65 +1,43 @@
-let formats = require('../formats');
-
-/* styles parser */
-let stylesParser = (data, options) => {
-    let styles = data.match(formats['wstyle']);
-    let styleObjects = [];
-    for(let i = 0; i<= styles.length; i++) {
-        let type = /w:type="(?<type>.*?)"/gm.exec(styles[i])?.groups.type;
-        let styleId = /w:styleId="(?<id>.*?)"/gm.exec(styles[i])?.groups.id;
-        let numId = formats['wnumId'].exec(styles[i])?.groups.id;
-        let ilvl = formats['wilvl'].exec(styles[i])?.groups.ilvl;
-        if(type) {
-            styleObjects.push({type: type, styleId, numId, ilvl});
-        };
-    };
-    return styleObjects;
-};
+const cheerio = require('cheerio');
+const { textParser } = require('./text-parser');
 
 /* document parser */
 let documentParser = (data, options) => {
-    let paras = data.match(formats['wp']);
-    let structuredText = '';
-    for (let i = 0; i <= paras.length; i++) {
-        let extractedText = '';
-        let style = '';
-        var runs = paras[i]?.match(formats['wr']);
-        var styles = paras[i]?.match(formats['wjc']);
+    // console.log(data);
+    let html = '';
+    const $ = cheerio.load(data, {
+        xml: {
+            normalizeWhitespace: true,
+          },
+    });
+    const body = $('w\\:body');
+    const _paras = body['0'].children;
+    for(let i = 0; i < _paras.length; i++) {
+        if(_paras[i].name === 'w:tbl') {
+            let tableRows = _paras[i].children.filter(child => child.name === 'w:tr');
+            let rows = '';
+            tableRows.forEach(row => {
+                let columns = '';
+                let tableColumns = row.children.filter(child => child.name === 'w:tc');
+                tableColumns.forEach(col => {
+                    let colText = '';
+                    col.children.forEach(child => {
+                        colText += textParser(child);
+                    })
+                    columns += `<td style="padding: 10px;">${colText}</td>`;
+                })
+                rows += `<tr>${columns}</tr>`;
+            });
 
-        if (styles !== null) {
-            let match = formats['attr'].exec(styles?.[0]);
-            if (match !== null) {
-                style = match.groups.style
-            }
+            html += `<table border="1" style="border-collapse: collapse;">${rows}</table>`;
         }
-        if (runs !== null) {
-            runs?.forEach(run => {
-                // let text = formats['wt'].exec(run);
-                let text = run.match(formats['wt'])?.map(function (val) {
-                    return val.replace(/<\/?w:t>/g, '');
-                })[0];
 
-                // let bold = formats['wb'].exec(run);
-                let bold = run.match(formats['wb'])?.map(function (val) {
-                    return formats['wb'].test(val);
-                })[0];
-                var underline = formats['wu'].exec(run);
-                let delText = run.match(formats['wdelText'])?.map(function (val) {
-                    return val.replace(/<\/?w:delText>/g, '');
-                })?.[0];
-                if (text) {
-                    extractedText += `<span style='font-weight:${bold ? 'bold' : 'normal'};text-decoration:${(underline !== null) ? 'underline' : 'none'}'>${text}</span>`;
-                    bold = false;
-                }
-                if (delText && options.delText) {
-                    extractedText += `<del style='color:red;font-weight:${bold ? 'bold' : 'normal'}'>${delText}</del>`;
-                    bold = false;
-                }
-            })
+        if(_paras[i].name === 'w:p') {
+            html += `<div>${textParser(_paras[i])}</div>`;
         }
-        structuredText += `<p style='text-align:${style};outline:none'>${extractedText}</p>`;
     }
-    return `<div contenteditable=${options.editable}>${structuredText}</div>`;
+
+    return `<div contenteditable=${options.editable}>${html}</div>`;
 }
 
-module.exports = {documentParser, stylesParser};
+module.exports = {documentParser };

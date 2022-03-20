@@ -1,6 +1,5 @@
 const StreamZip = require('node-stream-zip');
-const formats = require('./formats');
-const { documentParser, stylesParser, numberingParser } = require('./parser/parser');
+const { documentParser } = require('./parser/parser');
 
 module.exports = class Document {
     constructor(file, options = {
@@ -23,34 +22,13 @@ module.exports = class Document {
                 components = '',
                 styleChunks = [],
                 styleContent = '',
-                styleComponents = '',
-                numberingChunks = [],
-                numberingContent = '',
-                numberingComponents = '';
+                styleComponents = '';
 
             zip.on('error', (err) => {
                 reject(err);
             });
 
             zip.on('ready', () => {
-
-                // read styles.xml file
-            
-            zip.stream('word/styles.xml', (err, stream) => {
-                if (err) reject(reject(err));
-
-                stream.on('data', function (chunk) {
-                    styleChunks.push(chunk);
-                });
-
-                stream.on('end', () => {
-                    styleContent = Buffer.concat(styleChunks)
-                    zip.close()
-                    styleComponents = styleContent.toString();
-                    let styles = stylesParser(styleComponents);
-                    return;
-                })
-            });
 
                 // read document.xml file
                 zip.stream('word/document.xml', (err, stream) => {

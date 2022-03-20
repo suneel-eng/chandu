@@ -32,8 +32,10 @@ You can pause these options for the contructor.
 
 **Supported elements:**
 * Paragraphs
+* Tables
 
 **To do**
-* lists
-* tables
-* styles
+* Lists
+* Images
+* Links
+* Styles
